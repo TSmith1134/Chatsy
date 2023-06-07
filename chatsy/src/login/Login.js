@@ -18,7 +18,8 @@ function LoginBox(){
       username: username,
       password: password,
       confirmPassword: confirmPassword
-    })
+    },
+    { withCredentials: true })
     .then(function (response) {
       console.log(response);
       if(response.data === 'successful'){

@@ -6,24 +6,35 @@ import { LogRegBtnGroup } from "./components/LogRegBtnGroup";
 function LoginBox(){
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [usernameError, setUsernameError] = useState("")
+  const [loginError, setLoginError] = useState("")
+
+  const register = () => {
+    document.location.href = 'http://localhost:3001/register'
+  }
 
   const login = () => {
+    setLoginError("")
     if(username === ""){
-      setUsernameError("Please enter username")
+      setLoginError("Please enter username")
+      return
+    }
+    if(password === ""){
+      setLoginError("Please enter password")
+      return
     }
 
     Axios.post("http://localhost:3000/login", {
       username: username,
       password: password,
-      confirmPassword: confirmPassword
     },
     { withCredentials: true })
     .then(function (response) {
       console.log(response);
       if(response.data === 'successful'){
         document.location.href = "http://localhost:3001/home";
+      }
+      else{
+        setLoginError(response.data)
       }
     })
     .catch(function (error) {
@@ -36,8 +47,8 @@ function LoginBox(){
   return(
     
     <div className="loginForm">
-      <LoginForm usernameError={usernameError} setUsername={setUsername} setPassword={setPassword} setConfirmPassword={setConfirmPassword}></LoginForm>
-      <LogRegBtnGroup login={login}></LogRegBtnGroup>
+      <LoginForm loginError={loginError} setUsername={setUsername} setPassword={setPassword}></LoginForm>
+      <LogRegBtnGroup register={register} login={login}></LogRegBtnGroup>
     </div>
     
       

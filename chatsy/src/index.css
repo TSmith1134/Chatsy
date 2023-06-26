@@ -64,7 +64,7 @@ body{
   border-radius: 50px;
   background-color: #28292d;
   z-index: 10;
-  padding: 30px;
+  padding: 25px;
   padding-right: 50px;
   padding-left: 50px;
   
@@ -146,4 +146,8 @@ a{
 
 a:hover{
   color: #4fc3f7;
+}
+
+#loginError{
+  color: crimson;
 }

@@ -46,28 +46,79 @@ app.listen(3000, () => {
 app.post('/login', (req, res)=>{
     const username = req.body.username
     const password = req.body.password
-    const confirmPassword = req.body.confirmPassword
 
     db.query('SELECT * FROM `useraccounts` WHERE `username` = ?', [username], function (error, results, fields) {
         if(results.length == 1){
             if(results[0].password === password){
-                const nextSessionId = crypto.randomBytes(16).toString('base64')
+                const nextSessionId = crypto.randomBytes(12).toString('base64')
                 res.cookie('sessionId', nextSessionId, {maxAge:36000000 })
                 SESSIONS[nextSessionId] = results[0].id
                 res.send('successful')
             }
             else{
-                res.send('FAILED: incorrect password')
+                res.send('Username or password is incorrect')
             }
         }
         else if(results.length > 1){
-            res.send('FAILED: unknown error occured')
+            res.send('unknown error occured')
         }
         else if(results.length < 1){
-            res.send('FAILED: username does not exist')
+            res.send('Username or password is incorrect')
         }
         else{
             res.send(error)
         }
-      });
+      })
+})
+
+app.post('/register', (req,res)=>{
+    const username = req.body.username
+    const password = req.body.password
+    var userId = ""
+
+    db.query('SELECT id FROM `useraccounts`', function (error, results, fields) {
+        if(results.length > 0){
+            let i = 0
+            while(i<1){
+                userId = crypto.randomBytes(24).toString('base64')
+                results.forEach(id => {
+                    if(id.id === userId){
+                        return
+                    }
+                    i++
+                });
+            }
+        }
+        else{
+            userId = crypto.randomBytes(24).toString('base64')
+        }
+        db.query('SELECT id, username FROM `useraccounts`', function (error, results, fields) {
+        if(results.length > 0){
+            let i = 0
+            while(i<1){
+                userId = crypto.randomBytes(24).toString('base64')
+                results.forEach(user => {
+                    if(user.id === userId){
+                        return
+                    }
+                    if(user.username === username){
+                        res.send('Username already exists')
+                        return
+                    }
+                    
+                    i++
+                });
+            }
+        }
+        else{
+            userId = crypto.randomBytes(24).toString('base64')
+        }
+        db.query('INSERT INTO `useraccounts` (id, username, password) VALUES (?, ?, ?)', [userId, username, password], function (error, results, fields) {
+            if(error === null){
+                res.send('successful')
+            }
+          })
+      })
+      })
+      
 })

@@ -24,7 +24,7 @@ function LoginBox(){
     }
 
     Axios.post("http://localhost:3000/login", {
-      username: username,
+      username: username.toUpperCase(),
       password: password,
     },
     { withCredentials: true })

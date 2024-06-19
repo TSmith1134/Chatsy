@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body{
+  display: unset;
+  background-color: #23242a;
+}
+
+h2{
+  color: whitesmoke;
+  font-size: 30pt;
+  text-align: center;
+  padding-top: 0px;
+}
+label{
+  color: whitesmoke;
+  font-size: 20pt;
+}
+
+input{
+  position: relative;
+  height: 50px;
+  color: whitesmoke;
+  font-size: 18pt;
+  background-color: transparent;
+  border: none;
+  border-bottom: #4fc3f7 solid;  
+  outline: none;
+}
+
+input:hover{
+  border-bottom: #ed0891 solid; 
+}
+
+input:focus{
+  border-bottom: #ed0891 solid; 
+}
+
+a{
+  font-size: 15pt;
+  width: 60%;
+  color: #ed0891;
+}
+
+a:hover{
+  color: #4fc3f7;
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+  border-bottom: #1d1e22 solid;
+  /* position: fixed; */
+  grid-area: header;
+}
+
+.logo{
+  padding-left: 10pt;
+  left: 0;
+}
+
+.searchBar{
+  display: flex;
+  padding-top: 5pt;
+  padding-bottom: 5pt;
+  left: 50%;
+  right: 50%;
+}
+
+.searchBar > input[type="search"]{
+  border: #4fc3f7 solid;
+  border-radius: 40pt;
+  border-top-right-radius: 0pt;
+  border-bottom-right-radius: 0pt;
+  max-width: 500pt;
+  min-width:300pt;
+  height: 30pt;
+  padding-left: 5pt;
+}
+
+.searchBar > input[type="search"]:hover{
+  border: #ed0891 solid;
+}
+
+.searchBar > input[type="search"]:focus{
+  border: #ed0891 solid;
+}
+
+.searchBar > input[type="image"]{
+  border: #4fc3f7 solid;
+  /* border-right: none; */
+  border-radius: 40pt;
+  border-top-left-radius: 0pt;
+  border-bottom-left-radius: 0pt;
+  padding-left: 10pt;
+  padding-right: 10pt;
+  height: 30pt;
+}
+
+.searchBar > input[type="image"]:hover{
+  border: #ed0891 solid;
+}
+.searchBar > input[type="image"]:focus{
+  border: #ed0891 solid;
+  background-color: #ed0891;
+}
+
+.profile{
+  padding-top: 5pt;
+  padding-bottom: 5pt;
+  display: inline-flex;
+  right: 0;
+}
+
+.account{
+  display: inline-flex;
+  align-items: center;
+  justify-items: center;
+  color: whitesmoke;
+  font-size: 20pt;
+  background-color: #4fc3f7;
+  height: 100%;
+  border: #4fc3f7 solid;
+  border-radius: 50pt;
+  border-bottom-right-radius: 0pt;
+  border-top-right-radius: 0pt;
+  padding-left: 5pt;
+
+}
+
+.account:hover{
+  background-color: #ed0891;
+}
+
+.notifications{
+  background-color:transparent;
+  border-radius: 100%;
+  border: unset;
+}
+
+.notifications:hover{
+  background-color: #4fc3f7;
+}
+
+.profile > button > img{
+  height: 100%;
+}

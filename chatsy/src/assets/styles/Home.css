@@ -1,42 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-}
-
-h2{
-  color: whitesmoke;
-  font-size: 30pt;
-  text-align: center;
-  padding-top: 0px;
-}
-label{
-  color: whitesmoke;
-  font-size: 20pt;
-}
-
-input{
-  position: relative;
-  height: 50px;
-  color: whitesmoke;
-  font-size: 18pt;
-  background-color: transparent;
-  border: none;
-  border-bottom: #4fc3f7 solid;  
-  outline: none;
-}
-
-input:hover{
-  border-bottom: #ed0891 solid; 
-}
-
-input:focus{
-  border-bottom: #ed0891 solid; 
-}
-
 a{
   font-size: 15pt;
   width: 60%;
@@ -48,16 +11,66 @@ a:hover{
 }
 
 .homePage{
+  max-width: 100vw;
   display: grid;
   grid-template-areas:
-    'header header header'
-    'feedOptions feed news'
-    'feedOptions feed suggestedFollows';
+    'header header header header'
+    'feedMenus feed feed sideMenu'
+    'feedMenus feed feed sideMenu';
+}
+
+.feedMenus{
+  grid-area: feedMenus;
+  position: sticky;
+  align-self: start;
+  top: 50pt;
+  left: 0;
+}
+
+.profileOptions{
+  margin: 10pt;
+  padding: 10pt;
+  display: flex;
+  flex-direction: row;
+  background-color:rgb(22, 24, 28);
+  border-radius: 10pt;
+  border: solid rgb(22, 24, 28);
+}
+
+.profileOptions:hover{
+  border: #ed0891 solid; 
+  cursor: pointer;
+}
+
+.profileOptions:hover > #profileOptionsImage{
+  border: #ed0891 solid; 
+}
+
+#profileOptionsInfo{
+  padding-left: 5pt;
+  gap: none;
+}
+
+#profileOptionsInfo > h5{
+  padding: none;
+  margin: none;
+}
+
+#profileOptionsInfo > p{
+  text-decoration: underline;
+  text-align: center;
+  padding-top: 5pt;
+}
+
+#profileOptionsImage{
+  height: 50pt;
+  width: 50pt;
+  border-radius: 100%;
+  border: black, solid, 1pt;
 }
 
 .feedOptions{
   margin: 10pt;
-  margin-left: 30pt;
   padding: 10pt;
   grid-area: feedOptions;
   display: flex;
@@ -67,6 +80,11 @@ a:hover{
   text-align: center;
   background-color:rgb(22, 24, 28);
   border-radius: 10pt;
+  border: solid rgb(22, 24, 28);
+}
+
+.feedOptions:hover{
+  border: #ed0891 solid; 
 }
 
 .feedOptions > button{
@@ -79,6 +97,7 @@ a:hover{
   border-radius: 10pt;
   background-color: transparent;
   color: whitesmoke;
+  cursor: pointer;
 }
 
 .feedOptions > button:hover{
@@ -96,14 +115,291 @@ a:hover{
 
 .feed{
   grid-area: feed;
+  display: flex;
+  flex-direction: column;
   border-left: #1d1e22 solid;
   border-right: #1d1e22 solid;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  padding: 10pt;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  top: 50pt;
+  z-index: -1;
+  min-width: 40vw;
 }
 
-.suggestedFollows{
-  grid-area: suggestedFollows;
+.post{
+  margin: 10pt;
+  width: 95%;
+  padding: 10pt;
+  border-radius: 20pt;
+  border: solid rgb(22, 24, 28);
+}
+
+.postAuthor{
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.postAuthor > h2{
+  padding-left: 5pt;
+}
+
+.postAuthor > h5{
+  padding-left: 5pt;
+}
+
+.postAuthor > h5 > h6{
+  padding-left: 20pt;
+}
+
+.postAuthorImage{
+  height: 30pt;
+  width: 30pt;
+  border-radius: 100%;
+  border: black, solid, 1pt;
+}
+
+.postContent{
+  padding-left: 10pt;
+}
+
+.sideMenu{
+  grid-area: sideMenu;
+  position: sticky;
+  align-self: start;
+  top: 50pt;
+  right: 0;
 }
 
 .news{
-  grid-area: news;
+  margin: 10pt;
+  padding: 10pt;
+  background-color:rgb(22, 24, 28);
+  border-radius: 10pt;
+  border: solid rgb(22, 24, 28);
+  overflow-y: scroll;
+  max-height: 40vh;
+  position: sticky;
+  align-self: start;
+  top: 50pt;
+  right: 0;
+  padding-top: 0;
+}
+
+.news > h4{
+  position: sticky;
+  align-self: start;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgb(22, 24, 28);
+  text-align: center;
+}
+
+.article{
+  display: flex;
+  flex-direction: row;
+  max-width: 20vw;
+  padding-bottom: 5pt;
+}
+
+.article:hover{
+  cursor: pointer;
+}
+
+.articleImage{
+  height: 50pt;
+  width: 50pt;
+}
+
+.articleHeadline{
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.suggestedFollows{
+  margin: 10pt;
+  padding: 10pt;
+  background-color:rgb(22, 24, 28);
+  border-radius: 10pt;
+  border: solid rgb(22, 24, 28);
+  overflow-y: scroll;
+  max-height: 40vh;
+  position: sticky;
+  align-self: start;
+  top: 50pt;
+  right: 0;
+  padding-top: 0;
+}
+
+.suggestedFollows > h4{
+  position: sticky;
+  align-self: start;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgb(22, 24, 28);
+  text-align: center;
+}
+
+.suggestedProfile{
+  padding-top: 10pt;
+  display: flex;
+  flex-direction: row;
+  background-color:rgb(22, 24, 28);
+  border-radius: 10pt;
+  border: solid rgb(22, 24, 28);
+}
+
+.suggestedProfileImage{
+  height: 50pt;
+  width: 50pt;
+  border-radius: 100%;
+  border: black, solid, 1pt;
+}
+
+.suggestedProfile:hover{
+  border: #ed0891 solid; 
+  cursor: pointer;
+}
+
+.suggestedProfile:hover > .suggestedProfileImage{
+  border: #ed0891 solid; 
+}
+
+.suggestedProfileInfo{
+  padding-left: 5pt;
+  gap: none;
+}
+
+.suggestedProfileInfo > h5{
+  padding: none;
+  margin: none;
+}
+
+.suggestedProfileInfo > p{
+  text-decoration: underline;
+  text-align: center;
+  padding-top: 5pt;
+}
+
+#newPost{
+  display: none;
+  background-color:rgb(22, 24, 28);
+  border-radius: 10pt;
+  border: solid rgb(22, 24, 28);
+  position: fixed;
+  width: 60vw;
+  height: 70vh;
+  top: 10%;
+  left: 20%;
+  z-index: 10;
+  padding: 20pt;
+  -webkit-box-shadow:  0px 0px 0px 9999px rgba(0, 0, 0, 0.5);
+  box-shadow:  0px 0px 0px 9999px rgba(0, 0, 0, 0.5);
+  background-color: #23242a;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#newPost > label{
+  border-bottom: solid 1px rgb(22, 24, 28);
+}
+
+#newPost > h4{
+  text-align: center;
+}
+
+#newPost > textarea{
+  margin-top: 10pt;
+  padding: 10pt;
+  height: 90%;
+  font-size: 15pt;
+  background-color:rgb(22, 24, 28);
+  border-radius: 10pt;
+  border: solid rgb(22, 24, 28);
+  color: whitesmoke;
+  resize: none;
+}
+
+#newPost > textarea:hover{
+  border: #ed0891 solid;
+}
+
+#newPost > textarea:focus{
+  border: #ed0891 solid ;
+  outline: none;
+}
+
+#newPostButtonGroup{
+  align-self: center;
+  width: 100%;
+  text-align: center;
+}
+
+#newPostButtonGroup > input[type='submit']{
+  margin-top: 10%;
+  margin-right: 50pt;
+  font-size: 18pt;
+  text-align: center;
+  border: #3c95bf solid;
+  border-radius: 10pt;
+  background-color: #3c95bf;
+  color: whitesmoke;
+  width: 25%;
+  align-self: center;
+  cursor: pointer;
+  /* border-top-right-radius: 0;
+  border-bottom-right-radius: 0; */
+}
+
+#newPostButtonGroup > input[type='submit']:hover{
+  border: #ed0891 solid;
+  background-color: #ed0891;
+}
+
+#newPostButtonGroup > input[type='submit']:focus{
+  border: #ed0891 solid;
+  background-color: #ed0891;
+  outline: none;
+}
+
+#newPostButtonGroup > input[type='submit']:focus:hover{
+  border: #3c95bf solid;
+}
+
+#newPostButtonGroup > button{
+  margin-top: 10%;
+  font-size: 18pt;
+  text-align: center;
+  border: #3c95bf solid;
+  border-radius: 10pt;
+  background-color: transparent;
+  color: whitesmoke;
+  width: 25%;
+  align-self: center;
+  cursor: pointer;
+  /* border-top-left-radius: 0;
+  border-bottom-left-radius: 0; */
+}
+
+#newPostButtonGroup > button:hover{
+  border: #ed0891 solid;
+}
+
+#newPostButtonGroup > button:focus{
+  border: #ed0891 solid;
+  background-color: #ed0891;
+  outline: none;
+}
+
+#newPostButtonGroup > button:focus:hover{
+  border: #3c95bf solid;
 }

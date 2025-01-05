@@ -1,21 +1,8 @@
 const bcrypt = require("bcrypt")
-const mysql = require("mysql")
-const dotenv = require('dotenv')
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 const { log } = require("console")
-
-
-//database config
-dotenv.config({ path: './config/.env'})
-
-//establish database connection
-const db = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE
-})
+const SQLdb = require('../config/SQLConfig')
 
 const handleLogin =  async (req, res) => {
     const { username, password } = req.body
@@ -24,7 +11,7 @@ const handleLogin =  async (req, res) => {
         return res.status(400).json({'message' : 'Missing username or password'})
     }
 
-    await db.query('SELECT * FROM `useraccounts` WHERE `username` = ?', [username], async function (error, results, fields) {
+    await SQLdb.query('SELECT * FROM `useraccounts` WHERE `username` = ?', [username], async function (error, results, fields) {
         if(results.length == 1){
             //user exists, check password
             await bcrypt.compare(password, results[0].password, async function(err, result) {
@@ -48,7 +35,7 @@ const handleLogin =  async (req, res) => {
                         process.env.REFRESH_TOKEN_SECRET,
                         {expiresIn : '5d'})
 
-                    await db.query('UPDATE useraccounts SET refreshToken = ? WHERE id = ?' , [refreshToken, results[0].id], (err) =>{
+                    await SQLdb.query('UPDATE useraccounts SET refreshToken = ? WHERE id = ?' , [refreshToken, results[0].id], (err) =>{
                         if(err) return res.send(err)
                     })
                     

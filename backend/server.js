@@ -1,9 +1,11 @@
 //setup dependancies
+const mysql = require("mysql")
 const express = require("express")
 const cors = require("cors")
 const corsOptions = require('./config/corsOptions')
 const axios = require('axios')
 const cookieParser = require('cookie-parser')
+const SQLdb = require('./config/SQLConfig')
 
 const {logger} = require('./middleware/logEvents')
 const errorHandler = require('./middleware/errorHandler')
@@ -38,13 +40,24 @@ app.use('/auth', require('./routes/auth'))
 app.use('/refresh', require('./routes/refresh'))
 app.use('/logout', require('./routes/logout'))
 
+  //static file routes
+app.use('/images', express.static('images'))
+
+  //protected routes
 app.use(verifyJWT)
 app.use('/users', require('./routes/users'))
 
 //errorhandler middleware
 app.use(errorHandler)
 
-//make express listen on port 3000
-app.listen(3000, () => {
+//check connection to databases
+SQLdb.ping((err) => { 
+  if(err) console.log(err); 
+  //make express listen on port 3000  
+  else if(!err){
+    app.listen(3000, () => {
     console.log("app listening on port 3000")
   })
+  }
+}) 
+

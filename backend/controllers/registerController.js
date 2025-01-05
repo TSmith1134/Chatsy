@@ -1,18 +1,6 @@
 const crypto = require('crypto')
 const bcrypt = require("bcrypt")
-const mysql = require("mysql")
-const dotenv = require('dotenv')
-
-//database config
-dotenv.config({ path: './config/.env'})
-
-//establish database connection
-const db = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE
-})
+const SQLdb = require("../config/SQLConfig")
 
 const  handleNewUser = async (req, res) => {
     const { username, password } = req.body
@@ -21,7 +9,7 @@ const  handleNewUser = async (req, res) => {
         return res.status(400).json({'message' : 'Missing username or password'})
     }
 
-    await db.query('SELECT * FROM useraccounts WHERE username = ?', [username], async function (error, results, fields){
+    await SQLdb.query('SELECT * FROM useraccounts WHERE username = ?', [username], async function (error, results, fields){
         if(results.length > 0){
             return res.status(409).json({'message' : 'Username invalid: User already exists'})
         }
@@ -31,7 +19,7 @@ const  handleNewUser = async (req, res) => {
             var userId = ''
 
             //get all users from  database
-            await db.query('SELECT id FROM `useraccounts`', async function (error, results, fields) {
+            await SQLdb.query('SELECT id FROM `useraccounts`', async function (error, results, fields) {
                 //if  there are users check username and create unique id 
                 if(results.length > 0){
                     //create unique random hash id
@@ -58,7 +46,7 @@ const  handleNewUser = async (req, res) => {
                 }
                     
                 //insert into database
-                await db.query('INSERT INTO useraccounts (id, username, password) VALUES (?, ?, ?)', [userId, username, hashedPassword], function (error, results, fields) {
+                await SQLdb.query('INSERT INTO useraccounts (id, username, password) VALUES (?, ?, ?)', [userId, username, hashedPassword], function (error, results, fields) {
                     if(error === null){
                         //send response to client
                         res.status(201).send('User created')

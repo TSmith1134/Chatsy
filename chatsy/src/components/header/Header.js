@@ -5,11 +5,11 @@ const Header = () => {
 
 
     return(
-        <div className='header'>
+        <header className='header'>
             <h2 className='logo'>CHATSY</h2>
             <SearchBar/>
             <Profile/>
-        </div>
+        </header>
     )
 }
 

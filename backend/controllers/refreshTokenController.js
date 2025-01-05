@@ -1,17 +1,8 @@
-const mysql = require("mysql")
+const SQLdb = require("../config/SQLConfig")
 const dotenv = require('dotenv')
 const jwt = require('jsonwebtoken')
 
-//database config
 dotenv.config({ path: './config/.env'})
-
-//establish database connection
-const db = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE
-})
 
 const handleRefreshToken = (req, res) => {
     const cookies = req.cookies
@@ -22,7 +13,7 @@ const handleRefreshToken = (req, res) => {
 
     const refreshToken = cookies.jwt
 
-    db.query('SELECT * FROM useraccounts WHERE refreshToken = ?', [refreshToken], (err, results) => {
+    SQLdb.query('SELECT * FROM useraccounts WHERE refreshToken = ?', [refreshToken], (err, results) => {
         if(err) return res.send(err)
         if(results.length < 1) return res.sendStatus(403)
         if(results.length > 1) return res.sendStatus(403)
